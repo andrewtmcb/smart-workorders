@@ -1,0 +1,89 @@
+# === Global ===
+*.log
+*.env
+.env.*
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# === Node.js / Next.js (frontend/) ===
+node_modules/
+.next/
+out/
+coverage/
+npm-debug.log
+yarn-error.log
+package-lock.json
+.pnpm-store/
+dist/
+
+# === Python (backend/) ===
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+coverage/
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+.pyre/
+.tox/
+.pyright/
+
+# === Terraform (infrastructure/) ===
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+terraform.tfvars
+*.auto.tfvars
+
+# === Docker ===
+*.pid
+*.pid.lock
+docker-compose.override.yml
+
+# === Kubernetes ===
+*.kube/
+kustomize.build.yaml
+
+# === CI/CD ===
+/dist/
+build/
+.cache/
+.nyc_output/
+
+# === System Files ===
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# === OS-specific ===
+# macOS
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+._*
+
+# Linux
+*~
+
+# Windows
+$RECYCLE.BIN/
