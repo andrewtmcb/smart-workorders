@@ -1,5 +1,15 @@
+# Use a lightweight Python base
 FROM python:3.11-slim
+
+# Set working directory
 WORKDIR /app
-COPY ./app /app
-RUN pip install fastapi uvicorn
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source
+COPY . .
+
+# Run app with uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
