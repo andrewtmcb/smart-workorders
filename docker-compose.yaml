@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  frontend:
+    build: ./frontend
+    image: frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    image: backend:latest
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mqtt
+    environment:
+      - MQTT_BROKER=mqtt
+
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    ports:
+      - "1883:1883"
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus

@@ -60,3 +60,51 @@ jobs:
 
       - name: Build frontend Docker image
         run: docker build -t frontend:latest ./frontend
+
+  dry-run:
+    name: Dry Run
+    runs-on: ubuntu-latest
+    needs: frontend
+    steps:
+              # ---------------- Optional Minikube Dry-Run ----------------
+      - name: Minikube Dry Run
+        if: github.ref == 'refs/heads/main'  # optional: only run on main branch
+        shell: pwsh
+        run: |
+          choco install minikube -y
+          minikube start --driver=docker
+          minikube addons enable ingress
+          minikube image load frontend:latest
+          minikube image load backend:latest
+          kubectl apply -f k8s/
+          kubectl get pods
+          kubectl get svc
+          kubectl get ingress
+      # ---------------- Optional Docker Compose Dry-Run ----------------
+      - name: Docker Compose Dry-Run Demo
+        shell: pwsh
+        continue-on-error: true   # allows CI to succeed even if this step fails
+        run: |
+          Write-Host "=== DOCKER COMPOSE DRY-RUN ==="
+          Write-Host "Purpose: Spin up full SmartOps stack (frontend, backend, MQTT, Prometheus, Grafana) locally for demo/testing"
+          Write-Host "This step is optional and will not block CI if it fails"
+          
+          # Install Docker Compose if not already present
+          choco install docker-compose -y
+
+          Write-Host "Building and starting all services..."
+          docker-compose -f docker-compose.yml up --build --detach
+
+          Write-Host "Listing running containers..."
+          docker-compose ps
+
+          Write-Host "Sleeping 10 seconds to allow services to start..."
+          Start-Sleep -Seconds 10
+
+          Write-Host "Checking basic connectivity to backend and frontend services..."
+          docker-compose exec backend powershell -Command "Invoke-WebRequest -Uri http://localhost:8000 -UseBasicParsing | Select-Object StatusCode"
+          docker-compose exec frontend powershell -Command "Invoke-WebRequest -Uri http://localhost:3000 -UseBasicParsing | Select-Object StatusCode"
+
+          Write-Host "Stopping all containers..."
+          docker-compose down
+          Write-Host "=== DOCKER COMPOSE DRY-RUN COMPLETE ==="
