@@ -1,2 +1,19 @@
-# smart-workorders
-SmartOps is an DEMO open-source, production-grade smart workorder management system designed for industries like aerospace, advanced manufacturing, and industrial automation
+                        ┌────────────┐
+                        │  Frontend  │ (React, port 3000)
+                        └─────▲──────┘
+                              │
+                     ┌────────┴─────────┐
+                     │  Ingress (NGINX) │
+                     └───────┬──────────┘
+             ┌───────────────┼────────────────┐
+             │                               │
+     ┌───────▼───────┐                ┌───────▼───────┐
+     │   Backend     │ (FastAPI, port │   Prometheus  │
+     │   API (8000)  │      8000)     └───────▲───────┘
+     └───────▲───────┘                      │
+             │                          ┌───▼───┐
+             │                          │Grafana│
+             │                          └───────┘
+     ┌───────┴─────────────┐
+     │ MQTT Broker (Mosquitto│ ← mock IoT signals
+     └──────────────────────┘
