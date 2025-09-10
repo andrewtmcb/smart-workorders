@@ -1,0 +1,6 @@
+fastapi==0.111.0          # Core web framework
+uvicorn[standard]==0.23.1 # ASGI server
+pydantic==2.7.1           # Data validation & settings
+pytest==7.4.2             # Testing framework
+httpx==1.6.4              # Async HTTP client for internal service calls/tests
+python-multipart==0.0.6   # For file uploads if needed
