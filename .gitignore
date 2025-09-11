@@ -87,3 +87,14 @@ desktop.ini
 
 # Windows
 $RECYCLE.BIN/
+
+
+
+# ----------------
+# Playwright
+# ----------------
+playwright-report/
+videos/
+screenshots/
+*.tsbuildinfo
+test-results/
