@@ -1,84 +1,107 @@
 # Backend (FastAPI)
 
-This is the FastAPI backend for SmartOps. It provides APIs for the frontend and can be deployed in Kubernetes using Minikube.
+This is the FastAPI backend for **SmartOps**. It provides APIs for the frontend and can be deployed in Kubernetes using Minikube.
+
+---
 
 ## Prerequisites
 
 - Python 3.11+
-- Node.js and npm (for frontend only)
+- Node.js and npm (required for frontend development)
 - Docker
 - Minikube
 - kubectl
 
+---
+
 ## Local Development
 
-Create a virtual environment:
+1. **Create a virtual environment**  
+   (Choose the appropriate command for your OS):
 
-python -m venv venv
-.\venv\Scripts\activate # Windows
-source venv/bin/activate # Mac/Linux
+   **Windows:**
+   ```sh
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
 
+   **Mac/Linux:**
+   ```sh
+   python -m venv venv
+   source venv/bin/activate
+   ```
 
-Install dependencies:
+2. **Install dependencies:**
+   ```sh
+   pip install -r requirements.txt
+   ```
 
-pip install -r requirements.txt
+3. **Run the app locally:**
+   ```sh
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   ```
 
+4. **Test in your browser:**
+   - [http://localhost:8000](http://localhost:8000)  
+   - [http://localhost:8000/docs](http://localhost:8000/docs) (interactive Swagger UI)
 
-
-Run the app locally:
-
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-
-
-Test in your browser:
-
-- http://localhost:8000  
-- http://localhost:8000/docs (interactive Swagger UI)
+---
 
 ## Docker
 
-Build the Docker image:
+1. **Build the Docker image:**
+   ```sh
+   docker build -t backend:latest .
+   ```
 
-docker build -t backend:latest .
+2. **Run with Docker:**
+   ```sh
+   docker run -p 8000:8000 backend:latest
+   ```
 
-
-Run with Docker:
-
-docker run -p 8000:8000 backend:latest
-
+---
 
 ## Kubernetes (Minikube)
 
-Point Docker to Minikube:
+1. **Point Docker to Minikube:**
 
-**Windows**
-minikube docker-env | Invoke-Expression
+   **Windows:**
+   ```sh
+   minikube docker-env | Invoke-Expression
+   ```
 
+   **Mac/Linux:**
+   ```sh
+   eval $(minikube docker-env)
+   ```
 
-**Mac/Linux**
-eval $(minikube docker-env)
+2. **Build inside Minikube:**
+   ```sh
+   docker build -t backend:latest .
+   ```
 
+3. **Deploy:**
+   ```sh
+   kubectl apply -f k8s/backend.yaml
+   ```
 
-Build inside Minikube:
+4. **Check pods:**
+   ```sh
+   kubectl get pods
+   ```
 
-docker build -t backend:latest .
+5. **Expose the service:**
+   ```sh
+   minikube service backend-service --url
+   ```
 
-
-Deploy:
-
-kubectl apply -f k8s/backend.yaml
-
-Check pods:
-
-kubectl get pods
-
-
-Expose the service:
-
-minikube service backend-service --url
-
+---
 
 ## Notes
 
-- If you add more dependencies, update the `Dockerfile` to install them with pip or create a `requirements.txt`.
-- For frontend-to-backend communication inside Kubernetes, use the service name:
+- If you add more dependencies, update the `Dockerfile` to install them with pip or ensure they're listed in `requirements.txt`.
+- For frontend-to-backend communication inside Kubernetes, use the backend service name.
+
+---
+
+*Feel free to request more sections or customizations!*

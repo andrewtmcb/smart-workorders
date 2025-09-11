@@ -1,34 +1,45 @@
+# Project Architecture
+
+```
                         ┌────────────┐
                         │  Frontend  │ (React, port 3000)
                         └─────▲──────┘
                               │
                      ┌────────┴─────────┐
-                     │  Ingress (NGINX) │
+                     │ Ingress (NGINX)  │
                      └───────┬──────────┘
              ┌───────────────┼────────────────┐
              │                               │
      ┌───────▼───────┐                ┌───────▼───────┐
-     │   Backend     │ (FastAPI, port │   Prometheus  │
-     │   API (8000)  │      8000)     └───────▲───────┘
-     └───────▲───────┘                      │
+     │   Backend     │ (FastAPI,      │  Prometheus   │
+     │   API (8000)  │  port 8000)    └──────▲───────┘
+     └──────▲───────┘                      │
              │                          ┌───▼───┐
              │                          │Grafana│
              │                          └───────┘
      ┌───────┴─────────────┐
-     │ MQTT Broker (Mosquitto│ ← mock IoT signals
-     └──────────────────────┘
+     │ MQTT Broker         │ ← mock IoT signals
+     │ (Mosquitto)         │
+     └─────────────────────┘
+```
 
+---
 
+## Local Development Setup (Backend + Database)
 
-### Local Development Setup (Backend + DB)
+1. **Start the database locally:**
 
-1. Start the database locally:
+   Using Kubernetes:
+   ```sh
+   kubectl apply -f k8s/postgres.yaml
+   ```
 
-kubectl apply -f k8s/postgres.yaml
-# or, if using Docker Compose:
-docker-compose up -d postgres
+   Or, using Docker Compose:
+   ```sh
+   docker-compose up -d postgres
+   ```
 
-
+---
 
 ## End-to-End Testing (Playwright)
 
@@ -38,7 +49,9 @@ We use **Playwright** to test main frontend workflows and ensure key business pr
 
 1. Ensure dependencies are installed:
 
-npm install
-npx playwright install
+   ```sh
+   npm install
+   npx playwright install
+   ```
 
-
+---
