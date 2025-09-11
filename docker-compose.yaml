@@ -16,8 +16,13 @@ services:
       - "8000:8000"
     depends_on:
       - mqtt
+      - postgres
     environment:
       - MQTT_BROKER=mqtt
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USER=smartops
+      - DATABASE_PASSWORD=smartops123
 
   mqtt:
     image: eclipse-mosquitto:2.0
@@ -37,3 +42,18 @@ services:
       - "3001:3000"
     depends_on:
       - prometheus
+
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: smartops
+      POSTGRES_PASSWORD: smartops123
+      POSTGRES_DB: smartops
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres-data:

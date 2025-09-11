@@ -17,3 +17,14 @@
      ┌───────┴─────────────┐
      │ MQTT Broker (Mosquitto│ ← mock IoT signals
      └──────────────────────┘
+
+
+
+### Local Development Setup (Backend + DB)
+
+1. Start the database locally:
+
+```bash
+kubectl apply -f k8s/postgres.yaml
+# or, if using Docker Compose:
+docker-compose up -d postgres

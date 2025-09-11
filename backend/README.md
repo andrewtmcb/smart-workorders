@@ -21,7 +21,7 @@ source venv/bin/activate # Mac/Linux
 
 Install dependencies:
 
-pip install fastapi uvicorn
+pip install -r requirements.txt
 
 
 
