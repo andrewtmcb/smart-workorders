@@ -73,6 +73,7 @@ jobs:
         with:
           minikube version: 'v1.36.0'
           driver: docker
+          kubernetes-version: 'v1.29.0' 
 
       - name: Minikube Dry Run
         shell: bash
