@@ -27,13 +27,7 @@ jobs:
       - name: Run backend tests
         run: |
           # The -m flag runs tests without a specific path.
-          pytest --cov=./ --cov-report=xml backend/
-
-      - name: Upload backend coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          directory: ./backend/
-          token: ${{ secrets.CODECOV_TOKEN }}
+          pytest backend/
 
   frontend:
     name: Frontend CI
