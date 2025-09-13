@@ -26,12 +26,14 @@ jobs:
 
       - name: Run backend tests
         run: |
-          # replace with actual pytest commands when you add tests
-          echo "No backend tests yet!"
+          # The -m flag runs tests without a specific path.
+          pytest --cov=./ --cov-report=xml backend/
 
-      - name: Build backend Docker image
-        run: |
-          docker build -t backend:latest ./backend
+      - name: Upload backend coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./backend/
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   frontend:
     name: Frontend CI
@@ -48,18 +50,20 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm install
+        run: npm ci
 
-      - name: Run frontend tests
+      - name: Run frontend tests with coverage
         working-directory: frontend
-        run: npm test
+        run: npm run test:coverage
 
       - name: Build frontend
         working-directory: frontend
         run: npm run build
 
-      - name: Build frontend Docker image
-        run: docker build -t frontend:latest ./frontend
+      - name: Build and tag frontend Docker image
+        run: |
+          docker build -t frontend:latest ./frontend
+          docker tag frontend:latest your-docker-registry/frontend:latest # Pushing to registry will be a separate step
 
   workflow-demo:
     name: Workflow Demo
@@ -88,7 +92,6 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg
           mkdir -p docs
-          # grab the first .webm recording
           ffmpeg -i $(find test-results -name "*.webm" | head -n 1) \
             -vf "fps=10,scale=640:-1:flags=lanczos" docs/workflow.gif
 
@@ -99,4 +102,3 @@ jobs:
           path: |
             test-results/
             docs/workflow.gif
-
