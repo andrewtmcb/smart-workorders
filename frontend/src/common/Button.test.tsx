@@ -3,6 +3,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'; // This import provides the `toBeInTheDocument` matcher
 
 import Button from './Button';
+import { act } from 'react';
 
 describe('Button', () => {
   it('should render the button with the correct text', () => {

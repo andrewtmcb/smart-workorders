@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Props for a simple, reusable button.
  */
-interface ButtonProps {
+export interface ButtonProps {
   onClick: () => void;
   children: React.ReactNode;
   disabled?: boolean;
