@@ -31,7 +31,7 @@ describe("FormElement", () => {
             label="Age"
             id="age"
             placeholder="Enter age"
-            required={false} type={"text-input"}      
+            required={false} type={"number-input"}      
         />
     );
 
