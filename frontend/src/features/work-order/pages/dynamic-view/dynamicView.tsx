@@ -4,7 +4,7 @@ import FormElement from '../../components/FormElement';
 import Button from '../../../../common/Button';
 
 // A map to link schema component types to actual React components
-const componentMap: { [key: string]: React.ComponentType<any> } = {
+const componentMap: { [key: string]: React.ComponentType<ComponentField> } = {
   'text-input': FormElement,
   'number-input': FormElement,
   'select-input': FormElement,

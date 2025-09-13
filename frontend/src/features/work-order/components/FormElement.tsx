@@ -23,9 +23,17 @@ const FormElement: React.FC<FormElementProps> = ({ type, label, id, placeholder,
       break;
     default:
       // Handles 'text-input', 'number-input', 'date-picker', etc.
+      // Now, we map the schema type directly to the correct HTML type.
+      let htmlInputType = 'text';
+      if (type === 'number-input') {
+        htmlInputType = 'number';
+      } else if (type === 'date-picker') {
+        htmlInputType = 'date';
+      }
+
       inputElement = (
         <input
-          type={type === 'text-input' ? 'text' : type}
+          type={htmlInputType}
           id={id}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           placeholder={placeholder}

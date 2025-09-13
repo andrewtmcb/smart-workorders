@@ -4,7 +4,7 @@ import React, { useState } from 'react';
  * Props for the SafetyInstructions component.
  * It uses the ComponentField interface from the config schema.
  */
-interface SafetyInstructionsProps {
+export interface SafetyInstructionsProps {
   label: string;
   instructions: string[];
 }
