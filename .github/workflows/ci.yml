@@ -76,7 +76,7 @@ jobs:
   test:
     name: Run E2E Tests
     runs-on: ubuntu-latest
-    needs: build-and-run # This job now depends on the 'build-and-run' job.
+    needs: build-and-run 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -87,12 +87,11 @@ jobs:
           node-version: '20.x'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm i
 
       - name: Install Playwright
         run: npx playwright install --with-deps
 
-      # This is the new, more reliable way to wait for the application.
       - name: Wait for Application to be Ready
         run: |
           echo "Waiting for http://localhost:3000 to be ready..."
@@ -121,7 +120,6 @@ jobs:
             -vf "fps=10,scale=640:-1:flags=lanczos" docs/workflow.gif
 
       - name: Upload Artifacts
-        # The key change is here: we've upgraded from v3 to v4.
         uses: actions/upload-artifact@v4
         with:
           name: demo-artifacts
