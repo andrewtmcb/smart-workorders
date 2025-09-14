@@ -73,6 +73,11 @@ def create_application() -> FastAPI:
             allowed_hosts=settings.ALLOWED_HOSTS
         )
 
+    # Add a health check endpoint to the root URL
+    @application.get("/", tags=["health"])
+    async def read_root():
+        return {"status": "ok", "message": "API is running"}
+
     # Include API router
     application.include_router(api_router, prefix=settings.API_V1_STR)
 
