@@ -1,14 +1,8 @@
-FROM node:20-alpine AS build
+# Use a lightweight Node.js base image
+FROM node:18-alpine
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm install --production
 COPY . .
-RUN npm run build
-
-FROM node:20-alpine
-WORKDIR /app
-COPY --from=build /app/build ./build
-COPY server.js .
-# Expose ports for both the web server and metrics
-EXPOSE 3000
+EXPOSE 8000
 CMD ["node", "server.js"]
