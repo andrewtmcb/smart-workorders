@@ -1,16 +1,17 @@
+version: '3.9'
+
 services:
   frontend:
     build: ./frontend
-    image: frontend:latest
+    image: 2real2be2real/frontend:latest
     ports:
       - "3000:3000"
-      - "9091:9091" # Added metrics port
     depends_on:
       - backend
 
   backend:
     build: ./backend
-    image: backend:latest
+    image: 2real2be2real/backend:latest
     ports:
       - "8000:8000"
     depends_on:

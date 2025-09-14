@@ -11,5 +11,4 @@ COPY --from=build /app/build ./build
 COPY server.js .
 # Expose ports for both the web server and metrics
 EXPOSE 3000
-EXPOSE 9091
 CMD ["node", "server.js"]
