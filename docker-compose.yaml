@@ -16,7 +16,6 @@ services:
 
   backend:
     build: ./backend
-    # IMPORTANT: Replace [YOUR_DOCKERHUB_USERNAME] with your actual username to push to your repository.
     image: 2real2be2real/backend:latest
     ports:
       - "8000:8000"
@@ -29,7 +28,6 @@ services:
       - DATABASE_PORT=5432
       - DATABASE_USER=smartops
       - DATABASE_PASSWORD=smartops123
-    # This health check ensures the backend's API is responsive.
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000"]
       interval: 10s

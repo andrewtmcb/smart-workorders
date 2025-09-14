@@ -73,8 +73,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Start Docker Compose Stack
-        run: |
-          docker compose up -d
+        run: docker compose up --wait
 
       - name: Wait for Application to be Ready
         run: |
