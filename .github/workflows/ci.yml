@@ -74,6 +74,10 @@ jobs:
       
       - name: Start Docker Compose Stack
         run: docker compose up --wait
+        
+      - name: Print Docker Compose Logs on Failure
+        if: failure()
+        run: docker compose logs
 
       - name: Wait for Application to be Ready
         run: |
