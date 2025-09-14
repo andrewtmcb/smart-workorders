@@ -3,13 +3,11 @@ version: '3.9'
 services:
   frontend:
     build: ./frontend
-    # IMPORTANT: Replace [YOUR_DOCKERHUB_USERNAME] with your actual username to push to your repository.
     image: 2real2be2real/frontend:latest
     ports:
       - "3000:3000"
     depends_on:
       - backend
-    # This health check verifies the frontend is serving content.
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000"]
       interval: 10s
