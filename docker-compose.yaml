@@ -8,7 +8,13 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-
+    env_file:
+      - ./backend/.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: ./backend
@@ -51,12 +57,13 @@ services:
 
   postgres:
     image: postgres:15
+    container_name: smart-workorders-db-1
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: smartops
-      POSTGRES_PASSWORD: smartops123
-      POSTGRES_DB: smartops
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - postgres-data:/var/lib/postgresql/data
     restart: always
