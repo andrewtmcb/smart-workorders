@@ -98,6 +98,7 @@ jobs:
           mkdir -p backend
           echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> backend/.env
           echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> backend/.env
+          echo "POSTGRES_NAME=smartops" >> backend/.env
           echo "POSTGRES_HOST=postgres" >> backend/.env
           echo "POSTGRES_PORT=5432" >> backend/.env
 
