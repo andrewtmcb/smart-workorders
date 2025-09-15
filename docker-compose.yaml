@@ -1,28 +1,33 @@
-version: '3.9'
 
 services:
   frontend:
     build: ./frontend
-    image: frontend:latest
+    image: 2real2be2real/frontend:latest
     ports:
       - "3000:3000"
     depends_on:
       - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     build: ./backend
-    image: backend:latest
+    image: 2real2be2real/backend:latest
     ports:
       - "8000:8000"
     depends_on:
       - mqtt
       - postgres
-    environment:
-      - MQTT_BROKER=mqtt
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
-      - DATABASE_USER=smartops
-      - DATABASE_PASSWORD=smartops123
+    env_file:
+      - ./backend/.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   mqtt:
     image: eclipse-mosquitto:2.0
@@ -45,12 +50,11 @@ services:
 
   postgres:
     image: postgres:15
+    container_name: smart-workorders-db-1
     ports:
       - "5432:5432"
-    environment:
-      POSTGRES_USER: smartops
-      POSTGRES_PASSWORD: smartops123
-      POSTGRES_DB: smartops
+    env_file:
+      - ./backend/.env
     volumes:
       - postgres-data:/var/lib/postgresql/data
     restart: always

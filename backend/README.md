@@ -16,6 +16,24 @@ This is the FastAPI backend for **SmartOps**. It provides APIs for the frontend 
 
 ## Local Development
 
+# (Recommended)
+Create a file named .env in the backend/ directory of your project. Copy the contents below and fill in your specific values.
+
+VERSION=1.0.0
+PROJECT_NAME="Smart WorkOrders API"
+ENVIRONMENT=local
+BACKEND_CORS_ORIGINS=["http://localhost:3000"]
+API_V1_STR=/api/v1
+ALLOWED_HOSTS=["localhost", "127.0.0.1"]
+SECRET_KEY=your_secret_key_here
+
+DATABASE_HOST=postgres
+DATABASE_PORT=5432
+DATABASE_USER=smartops
+DATABASE_PASSWORD={REDACTED}
+DATABASE_NAME=smartops
+
+
 1. **Create a virtual environment**  
    (Choose the appropriate command for your OS):
 
@@ -100,8 +118,4 @@ This is the FastAPI backend for **SmartOps**. It provides APIs for the frontend 
 ## Notes
 
 - If you add more dependencies, update the `Dockerfile` to install them with pip or ensure they're listed in `requirements.txt`.
-- For frontend-to-backend communication inside Kubernetes, use the backend service name.
-
----
-
-*Feel free to request more sections or customizations!*
+- For frontend-to-backend communication inside Kubernetes, use the backend
