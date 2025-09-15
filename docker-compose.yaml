@@ -1,4 +1,3 @@
-version: '3.9'
 
 services:
   frontend:
@@ -54,7 +53,6 @@ services:
     container_name: smart-workorders-db-1
     ports:
       - "5432:5432"
-    # Use the same .env file for the database credentials.
     env_file:
       - ./backend/.env
     volumes:
